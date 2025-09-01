@@ -13,7 +13,7 @@ To use the extension, you'll need:
 1. The browser extension itself [link here](https://addons.mozilla.org/ru/firefox/addon/imageblocker-with-ai/).
 2. An AI-powered application that processes images. The extension specifically requires a classifier model like CLIP ([more details here](https://github.com/openai/CLIP)).
 
-A simple source code for such an application is provided in the `server` folder, separated into **CPU** and **GPU** versions. Additionally, a compiled **Windows executable** for the CPU version is available in the `/release` section for easy setup.
+A simple source code for such an application is provided in the `server` folder, separated into **CPU** and **GPU** versions. Additionally, a compiled **Windows executable** for the CPU version is available in the `/releases` section for easy setup.
 
 **Important Notes:**
 
