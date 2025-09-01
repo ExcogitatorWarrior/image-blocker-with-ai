@@ -1,0 +1,35 @@
+{
+  "manifest_version": 2,
+  "name": "ImageBlocker with AI",
+  "version": "1.0",
+  "description": "A browser tool for automatic image filtering, with an interface to connect and manage classifier AIs like OpenAI's CLIP through a flexible JSON pipeline.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "storage",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "scripts": ["background.js","processor.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": "icons/icon-48.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content_scripts/content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "web_accessible_resources": ["control_panel.html", "control_panel.js","import.html", "import.js"]
+}

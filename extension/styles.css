@@ -1,0 +1,60 @@
+/* ==================== Hover Mode ==================== */
+img.ai-auto-filtered {
+    filter: grayscale(100%) brightness(0%) blur(5px);
+    transition: filter 0.3s ease;
+}
+
+img.ai-auto-filtered:hover {
+    filter: none;
+}
+
+/* Dim background-images with overlay for hover */
+.bg-ai-auto-filtered {
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-ai-auto-filtered::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 1.0); /* fully hidden */
+    pointer-events: none;
+    transition: background 0.3s ease;
+}
+
+.bg-ai-auto-filtered:hover::after {
+    background: rgba(0, 0, 0, 0); /* reveal on hover */
+}
+
+/* ==================== Opacity Mode ==================== */
+img.ai-opacity-filtered {
+    opacity: 0;
+    transition: all 0s ease-out !important;
+}
+
+img.ai-opacity-filtered:hover {
+    opacity: 0;  /* restore on hover */
+}
+
+/* Dim background-images with opacity overlay */
+.bg-ai-opacity-filtered {
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-ai-opacity-filtered::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 1); /* fully hidden */
+    pointer-events: none;
+    transition: all 0s ease-out !important;
+}
+
+.bg-ai-opacity-filtered:hover::after {
+    background: rgba(0, 0, 0, 1); /* reveal on hover */
+}
+
+/* ==================== Remove Mode ==================== */
+/* No CSS needed for remove, element is removed via JS */

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image List</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+<div class="menu">
+    <button id="homeBtn">Home</button>
+    <button id="listBtn">Image List</button>
+    <button id="controlPanelBtn">Control Panel</button>
+    <button id="filteringBtn">Filtering</button>
+</div>
+
+<div id="homeSection" class="content-section">
+    <h2>Welcome to the Control Panel</h2>
+    <p>This is where you can manage your settings, filter preferences, and more.</p>
+    <p>Use the navigation menu to explore the options available:</p>
+    <ul>
+        <li><strong>Image List:</strong> Watch caught images and how they being process.</li>
+        <li><strong>Control Panel:</strong> Adjust your settings and preferences.</li>
+        <li><strong>Filtering:</strong> Profiles and regulation of filters through labels.</li>
+    </ul>
+    <p>For more detailed documentation, visit the <a href="https://github.com/ExcogitatorWarrior/image-blocker-with-ai" target="_blank">GitHub repository</a>.</p>
+</div>
+
+<div id="imageList" class="content-section" style="display: none;">
+    <h3 id="imageCount">Images Loaded: 0</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody id="imageTableBody"></tbody>
+    </table>
+</div>
+
+<div id="controlPanel" class="content-section" style="display: none;">
+    <h3>Control Panel</h3>
+
+    <!-- Big Slider -->
+    <div class="slider-container">
+        <label for="bigSlider" class="slider-label">Big Slider (0.00-1): <span id="bigSliderValue">0.5</span></label>
+        <input type="range" id="bigSlider" class="slider" min="0.00" max="1" value="0.5" step="0.01">
+    </div>
+
+    <!-- Sensitive Slider -->
+    <div class="slider-container">
+        <label for="sensitiveSlider" class="slider-label">Sensitive Slider (e-100 e-2): <span id="sensitiveSliderValue">1.0e-50</span></label>
+        <input type="range" id="sensitiveSlider" class="slider" min="0" max="100" value="50">
+    </div>
+    <!-- Filter Activation -->
+    <div id="settingsContainer">
+        <div class="toggle-row">
+            <span>Enable image filtering</span>
+            <input type="checkbox" id="activeFiltering">
+        </div>
+        <div class="toggle-row">
+            <span>Premoderation (hide before processing)</span>
+            <input type="checkbox" id="premoderationToggle">
+        </div>
+        <div class="toggle-row">
+            <span>Enforce for current site</span>
+            <input type="checkbox" id="enforceSiteToggle">
+        </div>
+    </div>
+
+    <span id="toggleBlacklist" style="cursor: pointer; color: blue; text-decoration: underline;">Toggle Blacklist</span>
+
+    <div id="cache-settings" style="margin: 10px 0;">
+        <label for="cacheSizeInput">Max Cache Size:</label>
+        <input type="number" id="cacheSizeInput" min="10" step="10" value="500">
+        <button id="saveCacheSize">Save</button>
+    </div>
+    <p id="cacheStatus"></p>
+
+    <div class="options-list">
+        <label for="filterOptions">Mode:</label>
+        <select id="filterOptions">
+            <option value="hover">Hide with Hover</option>
+            <option value="opacity">Hide Opacity 0%</option>
+            <option value="remove">Remove Elements</option>
+        </select>
+    </div>
+
+    <h2>Custom Server Settings</h2>
+
+    <label for="server-ip">Server IP:</label>
+    <input type="text" id="server-ip" placeholder="127.0.0.1" />
+
+    <label for="server-port">Port:</label>
+    <input type="number" id="server-port" placeholder="9095" />
+
+    <button id="save-server-settings">Save Settings</button>
+
+    <!-- Status message div to show feedback -->
+    <div id="connection-status" style="margin-top: 10px; font-weight: bold;"></div>
+</div>
+
+<div id="filteringTab" class="content-section" style="display: none;">
+    <h3>Image Filtering Parameters</h3>
+    <div id="statusMessage" style="color: green; font-weight: bold;"></div>
+    <div class="profile-section">
+        <div class="profile-selection">
+            <label for="profileList">Select Profile:</label>
+            <select id="profileList">
+                <option value="default">Default</option>
+                <!-- More profiles will be dynamically added here -->
+            </select>
+            <button id="addProfileBtn">+</button>
+            <button id="deleteProfileBtn">-</button>
+            <button id="exportBtn">Export Profiles</button>
+            <input type="file" id="importFile" style="display: none;" />
+            <button id="importBtn">Import Profiles</button>
+        </div>
+    </div>
+
+    <!-- Profile Modal for Creating a New Profile -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModalBtn">&times;</span>
+            <h3>Create New Profile</h3>
+            <input type="text" id="newProfileName" placeholder="Enter profile name" />
+            <button id="saveProfileBtn">Save Profile</button>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal for Deleting a Profile -->
+    <div id="deleteProfileModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeDeleteModalBtn">&times;</span>
+            <h3>Are you sure you want to delete this profile?</h3>
+            <button id="deleteProfileConfirmBtn">Yes</button>
+            <button id="deleteProfileCancelBtn">No</button>
+        </div>
+    </div>
+
+        <h3>Manage Labels</h3>
+
+        <!-- Input and add button -->
+        <div class="label-input-section">
+            <input type="text" id="newLabelInput" placeholder="Enter label..." />
+            <button id="addLabelBtn">+</button>
+        </div>
+
+        <!-- List of labels -->
+        <ul id="labelList" class="label-list">
+            <!-- Example label item -->
+            <li class="label-item">
+                <span class="label-text">example_label</span>
+                <button class="toggleBtn">to filter</button>
+                <button class="removeBtn">-</button>
+            </li>
+        </ul>
+    <div class="profile-default-buttons">
+        <button id="globalDefaultBtn">Make profile default for all pages</button>
+        <button id="pageDefaultBtn">Assign profile to this page as default</button>
+    </div>
+</div>
+<script src="popup.js"></script>
+</body>
+</html>
