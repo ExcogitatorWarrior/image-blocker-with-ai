@@ -1,0 +1,7 @@
+{
+    "PORT": 9095,
+    "WORKERS": 10,
+    "UPLOAD_DIR": "uploaded",
+    "TEXT_LABELS": ["cat", "car"],
+    "REQUEST_LABELS_PRIORITY": true
+}

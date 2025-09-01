@@ -1,0 +1,9 @@
+torch==2.8.0+cu128
+torchvision==0.23.0+cu128
+torchaudio==2.8.0+cu128
+aiohttp==3.12.15
+Pillow==11.3.0
+ftfy
+regex
+tqdm
+git+https://github.com/openai/CLIP.git
